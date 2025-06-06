@@ -4,6 +4,11 @@ const copyBtn = document.getElementById("copyBtn");
 const refreshBtn = document.getElementById("refreshBtn");
 const message = document.getElementById("message");
 
+// ✅ Use the correct backend URL (auto-detect localhost or deployed)
+const BASE_URL = window.location.hostname.includes("localhost")
+  ? "http://localhost:3000"
+  : "https://crooked-3rmv.onrender.com";
+
 refreshBtn.addEventListener("click", async () => {
   const rawCookie = inputField.value.trim();
 
@@ -14,7 +19,7 @@ refreshBtn.addEventListener("click", async () => {
   }
 
   try {
-    const response = await fetch(`http://localhost:3000/refresh?cookie=${encodeURIComponent(rawCookie)}`);
+    const response = await fetch(`${BASE_URL}/refresh?cookie=${encodeURIComponent(rawCookie)}`);
     const data = await response.json();
 
     if (data.cookie) {
